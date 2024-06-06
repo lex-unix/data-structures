@@ -39,3 +39,30 @@ func (l *CircularList) Search(key int) *Node {
 	}
 	return x
 }
+
+func (l *CircularList) DeleteAt(i int) {
+	if i < 0 {
+		return
+	}
+	current := l.sentinel.next
+	for pos := 0; current != l.sentinel; pos++ {
+		if pos == i {
+			l.Delete(current)
+			return
+		}
+		current = current.next
+	}
+}
+
+func (l *CircularList) DeleteKey(key int) {
+	node := l.Search(key)
+	if node == nil {
+		return
+	}
+	l.Delete(node)
+}
+
+func (l *CircularList) Delete(node *Node) {
+	node.prev.next = node.next
+	node.next.prev = node.prev
+}
