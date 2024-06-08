@@ -45,13 +45,13 @@ func (l *CircularList) DeleteAt(i int) {
 		return
 	}
 	current := l.sentinel.next
-	for pos := 0; current != l.sentinel; pos++ {
-		if pos == i {
-			l.Delete(current)
-			return
-		}
+	for pos := 0; current != l.sentinel && pos != i; pos++ {
 		current = current.next
 	}
+	if current == l.sentinel {
+		return
+	}
+	l.Delete(current)
 }
 
 func (l *CircularList) DeleteKey(key int) {
